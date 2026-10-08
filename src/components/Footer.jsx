@@ -37,11 +37,6 @@ export default function Footer() {
                 Checkout
               </Link>
             </li>
-            <li>
-              <Link to="/admin" className="hover:text-claydark">
-                Panel Admin
-              </Link>
-            </li>
           </ul>
         </div>
 
@@ -50,7 +45,7 @@ export default function Footer() {
             Kunjungi Kami
           </h3>
           <p className="mt-3 text-sm leading-relaxed text-muted">
-            Jl. Cempaka No. 12, Yogyakarta
+            Jl. Srikandi Gang Durian D/3, Singaraja
             <br />
             Senin–Sabtu, 09.00–17.00 WIB
             <br />
@@ -61,7 +56,7 @@ export default function Footer() {
 
       <div className="border-t border-sand py-4">
         <p className="text-center text-xs text-muted">
-          &copy; 2026 Jeda Store — Tugas Praktikum Frontend Programming (React &amp; Tailwind CSS).
+          &copy; 2026 Jeda Store.
         </p>
       </div>
     </footer>

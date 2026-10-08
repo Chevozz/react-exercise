@@ -68,8 +68,8 @@ export const products = [
   },
   {
     id: 4,
-    name: "Papan Potong Kayu Jati",
-    slug: "papan-potong-kayu-jati",
+    name: "Talenan Kayu Jati",
+    slug: "talenan-kayu-jati",
     price: 210000,
     category: "Dapur",
     image: papanPotong,
@@ -86,8 +86,8 @@ export const products = [
   },
   {
     id: 5,
-    name: "Botol Minum Keramik Pagi",
-    slug: "botol-minum-keramik-pagi",
+    name: "Tumbler Keramik Pagi",
+    slug: "tumbler-keramik-pagi",
     price: 189000,
     category: "Dapur",
     image: botolKeramik,
@@ -104,8 +104,8 @@ export const products = [
   },
   {
     id: 6,
-    name: "Meja Samping Rotan",
-    slug: "meja-samping-rotan",
+    name: "Meja Rotan",
+    slug: "meja-rotan",
     price: 650000,
     category: "Perabot",
     image: mejaRotan,
@@ -140,8 +140,8 @@ export const products = [
   },
   {
     id: 8,
-    name: "Nampan Tanah Liat",
-    slug: "nampan-tanah-liat",
+    name: "Piring Tanah Liat",
+    slug: "piring-tanah-liat",
     price: 145000,
     category: "Perabot",
     image: nampanLiat,
@@ -158,8 +158,8 @@ export const products = [
   },
   {
     id: 9,
-    name: "Tote Bag Kanvas Tebal",
-    slug: "tote-bag-kanvas-tebal",
+    name: "Tote Bag Kanvas",
+    slug: "tote-bag-kanvas",
     price: 135000,
     category: "Aksesoris",
     image: toteKanvas,
@@ -200,7 +200,7 @@ export const products = [
     category: "Perawatan",
     image: lilinLavender,
     description:
-      "Lilin lilin kedelai dengan aroma lavender dan sedikit cedarwood untuk waktu istirahat.",
+      "Lilin dengan aroma lavender dan sedikit cedarwood untuk waktu istirahat.",
     details: [
       "Waktu bakar 30 jam",
       "Sumbu katun bebas timbal",

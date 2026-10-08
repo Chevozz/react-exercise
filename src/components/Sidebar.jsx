@@ -2,7 +2,7 @@ import { NavLink, Link } from "react-router-dom";
 import { useState } from "react";
 
 const links = [
-  { label: "Dasbor", to: "/admin", icon: "grid" },
+  { label: "Dashboard", to: "/admin", icon: "grid" },
   { label: "Tentang", to: "/admin/about", icon: "info" },
 ];
 

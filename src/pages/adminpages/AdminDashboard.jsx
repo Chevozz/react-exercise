@@ -5,7 +5,7 @@ import { useCart } from "../../context/CartContext";
 const stats = [
   { label: "Total produk", value: products.length, hint: "aktif di katalog" },
   { label: "Kategori", value: categories.length - 1, hint: "tanpa filter Semua" },
-  { label: "Pesanan hari ini", value: 18, hint: "simulasi data statis" },
+  { label: "Pesanan hari ini", value: 18, hint: "simulasi data" },
   { label: "Pengrajin mitra", value: 9, hint: "tersedia untuk restok" },
 ];
 
@@ -22,9 +22,6 @@ export default function AdminDashboard() {
           <h2 className="font-serif text-xl font-semibold text-ink">
             Ringkasan toko
           </h2>
-          <p className="mt-1 text-sm text-muted">
-            Data diambil dari array produk lokal dan state keranjang.
-          </p>
         </div>
         <Link
           to="/admin/about"
@@ -54,7 +51,7 @@ export default function AdminDashboard() {
       <div className="mt-6 grid gap-4 lg:grid-cols-2">
         <section className="rounded-2xl border border-sand bg-paper p-4">
           <h3 className="text-sm font-semibold uppercase tracking-wide text-ink">
-            Keranjang berjalan
+            Keranjang pengunjung
           </h3>
           {cartItems.length === 0 ? (
             <p className="mt-3 text-sm text-muted">

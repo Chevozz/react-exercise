@@ -40,7 +40,7 @@ export default function Checkout() {
       newErrors.name = "Nama minimal 3 karakter.";
     }
     if (form.address.trim().length < 10) {
-      newErrors.address = "Alamat terlalu singkat, tulis lengkap ya.";
+      newErrors.address = "Alamat terlalu singkat, tulis yang lengkap agar memudahkan kurir mengantar pesanan anda.";
     }
     if (!/^0\d{8,12}$/.test(form.phone.trim())) {
       newErrors.phone = "Gunakan nomor HP, contoh: 081234567890.";
