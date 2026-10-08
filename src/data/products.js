@@ -1,0 +1,246 @@
+import kopiToraja from "../assets/products/kopi-toraja.svg";
+import tehMelati from "../assets/products/teh-melati.svg";
+import gelasAmber from "../assets/products/gelas-amber.svg";
+import papanPotong from "../assets/products/papan-potong.svg";
+import botolKeramik from "../assets/products/botol-keramik.svg";
+import mejaRotan from "../assets/products/meja-rotan.svg";
+import karungRajut from "../assets/products/karung-rajut.svg";
+import nampanLiat from "../assets/products/nampan-tanah-liat.svg";
+import toteKanvas from "../assets/products/tote-kanvas.svg";
+import dompetKulit from "../assets/products/dompet-kulit.svg";
+import lilinLavender from "../assets/products/lilin-lavender.svg";
+import sabunHerbal from "../assets/products/sabun-herbal.svg";
+
+export const products = [
+  {
+    id: 1,
+    name: "Kopi Robusta Toraja",
+    slug: "kopi-robusta-toraja",
+    price: 78000,
+    category: "Kopi & Teh",
+    image: kopiToraja,
+    description:
+      "Biji robusta pilihan dari kebun Toraja dengan profil rasa cokelat gelap dan sedikit rempah.",
+    details: [
+      "Netto 250 gram, biji utuh",
+      "Tingkat sangrai: medium dark",
+      "Kemasan zipper kedap udara",
+    ],
+    stock: 24,
+    rating: 4.8,
+    sold: 156,
+  },
+  {
+    id: 2,
+    name: "Teh Melati Rembulan",
+    slug: "teh-melati-rembulan",
+    price: 43000,
+    category: "Kopi & Teh",
+    image: tehMelati,
+    description:
+      "Teh hijau yang dicampur kuncup melati segar, aromanya lembut cocok diminum sore hari.",
+    details: [
+      "Netto 100 gram",
+      "Tanpa pewangi sintetis",
+      "Disimpan dalam stoples kedap cahaya",
+    ],
+    stock: 40,
+    rating: 4.6,
+    sold: 98,
+  },
+  {
+    id: 3,
+    name: "Gelas Kaca Amber Set 4",
+    slug: "gelas-kaca-amber-set-4",
+    price: 165000,
+    category: "Dapur",
+    image: gelasAmber,
+    description:
+      "Set empat gelas kaca berwarna madu, tebal di bagian dasar sehingga nyaman digenggam.",
+    details: [
+      "Isi 350 ml per gelas",
+      "Kaca tahan panas dan dingin",
+      "Bisa dicuci dengan mesin pencuci",
+    ],
+    stock: 15,
+    rating: 4.7,
+    sold: 74,
+  },
+  {
+    id: 4,
+    name: "Papan Potong Kayu Jati",
+    slug: "papan-potong-kayu-jati",
+    price: 210000,
+    category: "Dapur",
+    image: papanPotong,
+    description:
+      "Papan potong dari kayu jati solid dengan permukaan halus dan lubang gantung di bagian atas.",
+    details: [
+      "Ukuran 38 x 25 x 2 cm",
+      "Sudah dilapisi minyak biji rami",
+      "Dibuat oleh pengrajin lokal",
+    ],
+    stock: 12,
+    rating: 4.9,
+    sold: 63,
+  },
+  {
+    id: 5,
+    name: "Botol Minum Keramik Pagi",
+    slug: "botol-minum-keramik-pagi",
+    price: 189000,
+    category: "Dapur",
+    image: botolKeramik,
+    description:
+      "Botol keramik dengan tutup gabus yang menjaga suhu minuman tetap stabil lebih lama.",
+    details: [
+      "Kapasitas 600 ml",
+      "Lapisan matte anti selip",
+      "Tutup ulir kayu rapikan",
+    ],
+    stock: 18,
+    rating: 4.5,
+    sold: 51,
+  },
+  {
+    id: 6,
+    name: "Meja Samping Rotan",
+    slug: "meja-samping-rotan",
+    price: 650000,
+    category: "Perabot",
+    image: mejaRotan,
+    description:
+      "Meja bundar rotan anyaman dengan kaki kayu solid, pas untuk sudut baca atau teras.",
+    details: [
+      "Diameter 45 cm, tinggi 52 cm",
+      "Anyaman rotan alami",
+      "Kapasitas beban 15 kg",
+    ],
+    stock: 8,
+    rating: 4.9,
+    sold: 37,
+  },
+  {
+    id: 7,
+    name: "Karung Penyimpanan Rajut",
+    slug: "karung-penyimpanan-rajut",
+    price: 120000,
+    category: "Perabot",
+    image: karungRajut,
+    description:
+      "Keranjang serbaguna dari tali rajut katun, bisa untuk selimut, mainan, atau tanaman.",
+    details: [
+      "Tinggi 40 cm, diameter 32 cm",
+      "Mudah dilipat saat tidak dipakai",
+      "Tali katun daur ulang",
+    ],
+    stock: 26,
+    rating: 4.4,
+    sold: 88,
+  },
+  {
+    id: 8,
+    name: "Nampan Tanah Liat",
+    slug: "nampan-tanah-liat",
+    price: 145000,
+    category: "Perabot",
+    image: nampanLiat,
+    description:
+      "Nampan keramik bentuk daun dengan tepian melengkung, cantik untuk cangkir dan camilan.",
+    details: [
+      "Panjang 36 cm",
+      "Finishing matte food safe",
+      "Setiap warna sedikit berbeda karena dibakar manual",
+    ],
+    stock: 20,
+    rating: 4.7,
+    sold: 45,
+  },
+  {
+    id: 9,
+    name: "Tote Bag Kanvas Tebal",
+    slug: "tote-bag-kanvas-tebal",
+    price: 135000,
+    category: "Aksesoris",
+    image: toteKanvas,
+    description:
+      "Tas jinjing kanvas 12 oz dengan jahitan ganda, kuat untuk buku dan belanja harian.",
+    details: [
+      "Ukuran 36 x 38 cm",
+      "Saku dalam beritsleting",
+      "Tali pendek dan panjang",
+    ],
+    stock: 32,
+    rating: 4.6,
+    sold: 112,
+  },
+  {
+    id: 10,
+    name: "Dompet Kulit Minimalis",
+    slug: "dompet-kulit-minimalis",
+    price: 275000,
+    category: "Aksesoris",
+    image: dompetKulit,
+    description:
+      "Dompet lipat dua berbahan kulit samak dengan empat slot kartu dan satu saku uang.",
+    details: [
+      "Kulit nabati asli",
+      "Jahitan tangan bersih",
+      "Semakin lama warnanya makin hangat",
+    ],
+    stock: 14,
+    rating: 4.8,
+    sold: 59,
+  },
+  {
+    id: 11,
+    name: "Lilin Aromaterapi Lavender",
+    slug: "lilin-aromaterapi-lavender",
+    price: 99000,
+    category: "Perawatan",
+    image: lilinLavender,
+    description:
+      "Lilin lilin kedelai dengan aroma lavender dan sedikit cedarwood untuk waktu istirahat.",
+    details: [
+      "Waktu bakar 30 jam",
+      "Sumbu katun bebas timbal",
+      "Wadah keramik bisa dipakai ulang",
+    ],
+    stock: 35,
+    rating: 4.7,
+    sold: 129,
+  },
+  {
+    id: 12,
+    name: "Sabun Cuci Tangan Herbal",
+    slug: "sabun-cuci-tangan-herbal",
+    price: 48000,
+    category: "Perawatan",
+    image: sabunHerbal,
+    description:
+      "Sabun padat dengan minyak kelapa dan ekstrak teh hijau, lembut untuk tangan yang sering dicuci.",
+    details: [
+      "Berat 120 gram",
+      "Bebas pewarna sintetis",
+      "Kemasan kertas daur ulang",
+    ],
+    stock: 48,
+    rating: 4.5,
+    sold: 167,
+  },
+];
+
+export const categories = [
+  "Semua",
+  ...Array.from(new Set(products.map((product) => product.category))),
+];
+
+export const getProductById = (id) =>
+  products.find((product) => product.id === Number(id));
+
+export const formatPrice = (value) =>
+  new Intl.NumberFormat("id-ID", {
+    style: "currency",
+    currency: "IDR",
+    minimumFractionDigits: 0,
+  }).format(value);
