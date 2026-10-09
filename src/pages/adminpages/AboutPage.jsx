@@ -19,8 +19,7 @@ export default function AboutPage() {
           </p>
           <p className="mt-3 text-sm leading-relaxed text-muted">
             Katalog kami mencakup perlengkapan minum, perabot kecil, aksesoris,
-            dan perawatan diri — semuanya dipilih dengan standar yang sama:
-            bahan jujur, harga masuk akal, dan bentuk yang tidak cepat bosan.
+            dan perawatan diri. Semua produk kami dibuat dengan bahan alami dan ramah lingkungan.
           </p>
         </section>
 

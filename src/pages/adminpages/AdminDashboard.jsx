@@ -6,7 +6,7 @@ const stats = [
   { label: "Total produk", value: products.length, hint: "aktif di katalog" },
   { label: "Kategori", value: categories.length - 1, hint: "tanpa filter Semua" },
   { label: "Pesanan hari ini", value: 18, hint: "simulasi data" },
-  { label: "Pengrajin mitra", value: 9, hint: "tersedia untuk restok" },
+  { label: "Pengrajin mitra", value: 9, hint: "tersedia untuk restock" },
 ];
 
 export default function AdminDashboard() {
@@ -106,7 +106,7 @@ export default function AdminDashboard() {
                   {product.name}
                 </Link>
                 <span className="shrink-0 text-muted">
-                  {formatPrice(product.price)} · stok {product.stock}
+                  {formatPrice(product.price)} · stock {product.stock}
                 </span>
               </li>
             ))}

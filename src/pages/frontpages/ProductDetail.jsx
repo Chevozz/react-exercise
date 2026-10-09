@@ -74,7 +74,7 @@ export default function ProductDetail() {
           <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted">
             <span>★ {product.rating.toFixed(1)}</span>
             <span>Terjual {product.sold}</span>
-            <span>Stok tersisa {product.stock}</span>
+            <span>Stock tersisa {product.stock}</span>
           </div>
 
           <p className="mt-4 text-sm leading-relaxed text-muted">
