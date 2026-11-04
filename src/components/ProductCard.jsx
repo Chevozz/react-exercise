@@ -27,7 +27,7 @@ export default function ProductCard({ product }) {
           <span>
             ★ {product.rating.toFixed(1)} · terjual {product.sold}
           </span>
-          <span>{product.stock} stok</span>
+          <span>{product.stock} stock</span>
         </div>
 
         <h3 className="font-serif text-base font-semibold leading-snug text-ink">

@@ -1,11 +1,18 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import ProductCard from "../../components/ProductCard";
-import { products, categories } from "../../data/products";
+import { useCatalog } from "../../context/CartContext";
+import { loadCatalog } from "../../api";
 
 export default function Dashboard() {
   const { searchQuery } = useOutletContext();
   const [activeCategory, setActiveCategory] = useState("Semua");
+  const { products, categories, isLoading, isStale, error, refresh } =
+    useCatalog();
+
+  useEffect(() => {
+    refresh(loadCatalog);
+  }, [refresh]);
 
   const filteredProducts = useMemo(() => {
     const keyword = searchQuery.trim().toLowerCase();
@@ -21,7 +28,9 @@ export default function Dashboard() {
 
       return inCategory && inSearch;
     });
-  }, [searchQuery, activeCategory]);
+  }, [products, searchQuery, activeCategory]);
+
+  const featured = products.slice(0, 4);
 
   return (
     <>
@@ -49,7 +58,7 @@ export default function Dashboard() {
                 Lihat koleksi
               </a>
               <Link
-                to="/product/6"
+                to={featured[0] ? `/product/${featured[0].id}` : "/"}
                 className="rounded-full border border-sand bg-paper px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-clay"
               >
                 Produk unggulan
@@ -59,7 +68,7 @@ export default function Dashboard() {
 
           <div className="relative">
             <div className="grid grid-cols-2 gap-3">
-              {[products[5], products[3], products[0], products[10]].map(
+              {featured.map(
                 (product) => (
                   <Link
                     key={product.id}
@@ -86,8 +95,16 @@ export default function Dashboard() {
               Koleksi produk
             </h2>
             <p className="mt-1 text-sm text-muted">
-              {filteredProducts.length} produk tersedia
+              {isLoading
+                ? "Memuat katalog dari API..."
+                : `${filteredProducts.length} produk tersedia`}
             </p>
+            {isStale && (
+              <p className="mt-2 rounded-xl bg-sand/60 px-3 py-2 text-xs text-claydark">
+                Katalog memakai hasil terakhir karena API belum bisa diakses.
+                {error ? ` (${error.message})` : ""}
+              </p>
+            )}
           </div>
 
           <div className="flex flex-wrap gap-2">
@@ -109,7 +126,17 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {filteredProducts.length > 0 ? (
+        {isLoading && products.length === 0 ? (
+          <div className="mt-10 rounded-2xl border border-dashed border-sand bg-paper p-10 text-center">
+            <p className="font-serif text-lg font-semibold text-ink">
+              Menghubungi backend Jeda Store
+            </p>
+            <p className="mt-1 text-sm text-muted">
+              Pastikan php artisan serve berjalan dan token Sanctum sudah
+              disiapkan di localStorage.
+            </p>
+          </div>
+        ) : filteredProducts.length > 0 ? (
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />

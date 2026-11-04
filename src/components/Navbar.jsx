@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useCart } from "../context/CartContext";
+import { clearToken, getToken } from "../api";
 
 const menuItems = [
   { label: "Beranda", to: "/" },
@@ -18,10 +19,24 @@ function linkClass(isActive) {
   ].join(" ");
 }
 
-export default function Navbar() {
+export default function Navbar({ onLogout }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { totalItems } = useCart();
   const location = useLocation();
+
+  // Cabut token di backend dulu, baru bersihkan localStorage.
+  const handleLogout = async () => {
+    try {
+      await fetch("/api/logout", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${getToken()}` },
+      });
+    } catch {
+      // Backend mati: token lokal tetap dibersihkan di bawah.
+    }
+    clearToken();
+    onLogout();
+  };
 
   return (
     <header className="sticky top-0 z-40 border-b border-sand bg-paper/95 backdrop-blur">
@@ -56,6 +71,13 @@ export default function Navbar() {
               )}
             </NavLink>
           ))}
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="rounded-full border border-sand px-3 py-2 text-sm text-muted transition hover:border-clay hover:text-claydark"
+          >
+            Keluar
+          </button>
         </nav>
 
         <div className="flex items-center gap-3">
@@ -131,6 +153,15 @@ export default function Navbar() {
                 </li>
               );
             })}
+            <li>
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="block w-full rounded-xl px-3 py-2 text-left text-sm text-muted"
+              >
+                Keluar
+              </button>
+            </li>
           </ul>
         </nav>
       )}

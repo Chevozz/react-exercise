@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import ProductImage from "../../components/ProductImage";
 import ProductCard from "../../components/ProductCard";
-import { getProductById, products, formatPrice } from "../../data/products";
-import { useCart } from "../../context/CartContext";
+import { formatPrice } from "../../data/products";
+import { useCatalog, useCart } from "../../context/CartContext";
 
 export default function ProductDetail() {
   const { id } = useParams();
-  const product = getProductById(id);
+  const { products, isLoading } = useCatalog();
+  const product = products.find((item) => item.id === Number(id));
   const { addToCart } = useCart();
   const navigate = useNavigate();
   const [quantity, setQuantity] = useState(1);
@@ -17,10 +18,12 @@ export default function ProductDetail() {
     return (
       <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6">
         <h1 className="font-serif text-2xl font-semibold text-ink">
-          Produk tidak ditemukan
+          {isLoading ? "Memuat produk..." : "Produk tidak ditemukan"}
         </h1>
         <p className="mt-2 text-sm text-muted">
-          Barang dengan ID #{id} belum tersedia di katalog Jeda Store.
+          {isLoading
+            ? "Data katalog sedang diambil dari API Jeda Store."
+            : `Barang dengan ID #${id} belum tersedia di katalog Jeda Store.`}
         </p>
         <Link
           to="/"

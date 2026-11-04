@@ -1,19 +1,28 @@
 import { Link } from "react-router-dom";
-import { products, categories, formatPrice } from "../../data/products";
-import { useCart } from "../../context/CartContext";
-
-const stats = [
-  { label: "Total produk", value: products.length, hint: "aktif di katalog" },
-  { label: "Kategori", value: categories.length - 1, hint: "tanpa filter Semua" },
-  { label: "Pesanan hari ini", value: 18, hint: "simulasi data" },
-  { label: "Pengrajin mitra", value: 9, hint: "tersedia untuk restock" },
-];
+import { products, formatPrice } from "../../data/products";
+import { useCatalog, useCart } from "../../context/CartContext";
 
 export default function AdminDashboard() {
   const { cartItems, totalPrice } = useCart();
+  const { products: catalogProducts } = useCatalog();
 
-  const cheapest = [...products].sort((a, b) => a.price - b.price).slice(0, 5);
-  const perks = [...products].sort((a, b) => b.sold - a.sold).slice(0, 5);
+  // Produk dari API dipakai bila sudah termuat; data lokal hanya untuk
+  // pratinjau saat panel admin dibuka sebelum katalog selesai dimuat.
+  const source = catalogProducts.length > 0 ? catalogProducts : products;
+
+  const stats = [
+    { label: "Total produk", value: source.length, hint: "aktif di katalog" },
+    {
+      label: "Kategori",
+      value: new Set(source.map((item) => item.category)).size,
+      hint: "tanpa filter Semua",
+    },
+    { label: "Pesanan hari ini", value: 18, hint: "simulasi data" },
+    { label: "Pengrajin mitra", value: 9, hint: "tersedia untuk restock" },
+  ];
+
+  const cheapest = [...source].sort((a, b) => a.price - b.price).slice(0, 5);
+  const perks = [...source].sort((a, b) => b.sold - a.sold).slice(0, 5);
 
   return (
     <div>

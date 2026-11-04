@@ -2,10 +2,10 @@ import { Outlet } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
-export default function MainLayout({ searchQuery, setSearchQuery }) {
+export default function MainLayout({ searchQuery, setSearchQuery, onLogout }) {
   return (
     <div className="flex min-h-screen flex-col bg-paper">
-      <Navbar />
+      <Navbar onLogout={onLogout} />
 
       <section className="border-b border-sand bg-paper">
         <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">

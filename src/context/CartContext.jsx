@@ -1,4 +1,51 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
+
+const CatalogContext = createContext(null);
+
+// Katalog dimuat sekali di sini lalu dibagikan ke seluruh halaman.
+// refresh() dipakai ulang oleh dashboard, sehingga hanya satu tempat yang menyentuh API.
+export function CatalogProvider({ children }) {
+  const [catalog, setCatalog] = useState({
+    products: [],
+    categories: [],
+    isLoading: true,
+    isStale: false,
+    error: null,
+  });
+
+  // useCallback wajib: identitas fungsi harus stabil, kalau tidak useEffect
+  // di Dashboard akan memicu muat ulang katalog tanpa henti.
+  const refresh = useCallback(async (loader) => {
+    setCatalog((current) => ({ ...current, isLoading: true }));
+    const result = await loader();
+    setCatalog({
+      products: result.products,
+      categories: [
+        "Semua",
+        ...Array.from(new Set(result.products.map((item) => item.category))),
+      ],
+      isLoading: false,
+      isStale: result.stale,
+      error: result.error,
+    });
+  }, []);
+
+  return (
+    <CatalogContext.Provider value={{ ...catalog, refresh }}>
+      {children}
+    </CatalogContext.Provider>
+  );
+}
+
+export function useCatalog() {
+  const context = useContext(CatalogContext);
+
+  if (!context) {
+    throw new Error("useCatalog harus dipakai di dalam CatalogProvider");
+  }
+
+  return context;
+}
 
 const CartContext = createContext(null);
 
