@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 
 import MainLayout from "./layouts/MainLayout";
 import AdminLayout from "./layouts/AdminLayout";
@@ -16,6 +16,9 @@ import NotFound from "./pages/frontpages/NotFound";
 
 import { CatalogProvider } from "./context/CartContext";
 import { getToken } from "./api";
+
+import ProductForm from "./pages/adminpages/ProductForm";
+import ProductEdit from "./pages/adminpages/ProductEdit";
 
 export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -46,8 +49,12 @@ export default function App() {
         </Route>
 
         <Route path="/admin" element={<AdminLayout />}>
-          <Route index element={<AdminDashboard />} />
+            {/* Halaman default admin */}
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<AdminDashboard />} />
           <Route path="about" element={<AboutPage />} />
+          <Route path="add-product" element={<ProductForm />} />
+          <Route path="edit-product/:id" element={<ProductEdit />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

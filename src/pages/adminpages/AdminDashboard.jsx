@@ -1,127 +1,205 @@
+
 import { Link } from "react-router-dom";
-import { products, formatPrice } from "../../data/products";
-import { useCatalog, useCart } from "../../context/CartContext";
+import toast from "react-hot-toast";
+import { useProducts } from "../../utils/ProductContext";
 
+// Nama komponen
 export default function AdminDashboard() {
-  const { cartItems, totalPrice } = useCart();
-  const { products: catalogProducts } = useCatalog();
+    // Mengambil data dan fungsi dari ProductContext
+    const {
+        products,
+        isLoading,
+        isError,
+        deleteProduct
+    } = useProducts();
 
-  // Produk dari API dipakai bila sudah termuat; data lokal hanya untuk
-  // pratinjau saat panel admin dibuka sebelum katalog selesai dimuat.
-  const source = catalogProducts.length > 0 ? catalogProducts : products;
+    // Menampilkan loading
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
 
-  const stats = [
-    { label: "Total produk", value: source.length, hint: "aktif di katalog" },
-    {
-      label: "Kategori",
-      value: new Set(source.map((item) => item.category)).size,
-      hint: "tanpa filter Semua",
-    },
-    { label: "Pesanan hari ini", value: 18, hint: "simulasi data" },
-    { label: "Pengrajin mitra", value: 9, hint: "tersedia untuk restock" },
-  ];
+    // Menampilkan error
+    if (isError) {
+        return <p>Error loading products.</p>;
+    }
 
-  const cheapest = [...source].sort((a, b) => a.price - b.price).slice(0, 5);
-  const perks = [...source].sort((a, b) => b.sold - a.sold).slice(0, 5);
+    // =====================================
+    // DELETE PRODUCT
+    // =====================================
 
-  return (
-    <div>
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <div>
-          <h2 className="font-serif text-xl font-semibold text-ink">
-            Ringkasan toko
-          </h2>
+    const handleDelete = async (id) => {
+        const confirmDelete = window.confirm(
+            "Apakah kamu yakin ingin menghapus produk ini?"
+        );
+
+        if (!confirmDelete) return;
+
+        try {
+            await deleteProduct.mutateAsync(id);
+
+            toast.success("Produk berhasil dihapus!");
+
+        } catch (error) {
+            console.error(
+                "Gagal menghapus produk:",
+                error
+            );
+
+            toast.error(
+                "Terjadi kesalahan saat menghapus produk."
+            );
+        }
+    };
+
+    // =====================================
+    // TAMPILAN DASHBOARD
+    // =====================================
+
+    return (
+        <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
+
+            <div className="rounded-2xl border border-sand bg-paper p-4">
+
+                {/* Judul Halaman */}
+                <h1 className="text-xl font-bold mb-4">
+                    Manajemen Produk
+                </h1>
+
+                {/* Tombol Tambah Produk */}
+                <div className="mb-4">
+                    <Link
+                        to="/admin/add-product"
+                        className="text-blue-600 hover:underline"
+                    >
+                        Tambah Produk
+                    </Link>
+                </div>
+
+                {/* Tabel Produk */}
+                <div className="overflow-x-auto">
+
+                    <table className="table-auto w-full border">
+
+                        <thead>
+                            <tr className="bg-gray-100 text-left">
+                                <th className="p-2 border">
+                                    #
+                                </th>
+
+                                <th className="p-2 border">
+                                    Image
+                                </th>
+
+                                <th className="p-2 border">
+                                    Nama
+                                </th>
+
+                                <th className="p-2 border">
+                                    Harga
+                                </th>
+
+                                <th className="p-2 border">
+                                    Stok
+                                </th>
+
+                                <th className="p-2 border">
+                                    Aksi
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            {/* Menampilkan data produk */}
+                            {products?.map((p, index) => (
+
+                                <tr key={p.id}>
+
+                                    {/* Nomor */}
+                                    <td className="p-2 border">
+                                        {index + 1}
+                                    </td>
+
+                                    {/* Gambar */}
+                                    <td className="p-2 border">
+                                        <img
+                                            src={
+                                                p.img_url ||
+                                                p.image_url ||
+                                                p.image
+                                            }
+                                            alt={p.name}
+                                            className="w-16 h-16 object-cover rounded"
+                                        />
+                                    </td>
+
+                                    {/* Nama dan Kategori */}
+                                    <td className="p-2 border">
+                                        {p.name}
+
+                                        <br />
+
+                                        <small className="text-gray-500">
+                                            #{p.category?.name || p.category?.category || p.category || "-"}
+                                        </small>
+                                    </td>
+
+                                    {/* Harga */}
+                                    <td className="p-2 border">
+                                        Rp. {Number(p.price).toLocaleString("id-ID")}
+                                    </td>
+
+                                    {/* Stok */}
+                                    <td className="p-2 border">
+                                        {p.stock}
+                                    </td>
+
+                                    {/* Aksi */}
+                                    <td className="p-2 border space-x-2">
+
+                                        {/* Tombol Edit */}
+                                        <Link
+                                            to={`/admin/edit-product/${p.id}`}
+                                            className="text-blue-600 hover:underline"
+                                        >
+                                            Edit
+                                        </Link>
+
+                                        {/* Tombol Hapus */}
+                                        <button
+                                            onClick={() => handleDelete(p.id)}
+                                            disabled={deleteProduct.isPending}
+                                            className="cursor-pointer text-red-600 hover:underline disabled:opacity-50"
+                                        >
+                                            Hapus
+                                        </button>
+
+                                    </td>
+
+                                </tr>
+
+                            ))}
+
+                            {/* Jika produk kosong */}
+                            {products?.length === 0 && (
+                                <tr>
+                                    <td
+                                        colSpan="6"
+                                        className="p-4 text-center text-gray-500"
+                                    >
+                                        Belum ada produk.
+                                    </td>
+                                </tr>
+                            )}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
         </div>
-        <Link
-          to="/admin/about"
-          className="rounded-full border border-sand px-3 py-1.5 text-xs text-muted transition hover:border-clay hover:text-claydark"
-        >
-          Tentang aplikasi
-        </Link>
-      </div>
-
-      <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-        {stats.map((stat) => (
-          <div
-            key={stat.label}
-            className="rounded-2xl border border-sand bg-paper p-4"
-          >
-            <p className="text-[11px] uppercase tracking-wide text-muted">
-              {stat.label}
-            </p>
-            <p className="mt-1 font-serif text-2xl font-semibold text-ink">
-              {stat.value}
-            </p>
-            <p className="text-xs text-muted">{stat.hint}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-6 grid gap-4 lg:grid-cols-2">
-        <section className="rounded-2xl border border-sand bg-paper p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-ink">
-            Keranjang pengunjung
-          </h3>
-          {cartItems.length === 0 ? (
-            <p className="mt-3 text-sm text-muted">
-              Belum ada produk yang dimasukkan pengunjung.
-            </p>
-          ) : (
-            <ul className="mt-3 space-y-2 text-sm">
-              {cartItems.map((item) => (
-                <li key={item.id} className="flex items-center justify-between gap-3">
-                  <span className="truncate text-ink">{item.name}</span>
-                  <span className="shrink-0 text-muted">
-                    {item.quantity} × {formatPrice(item.price)}
-                  </span>
-                </li>
-              ))}
-              <li className="flex items-center justify-between border-t border-dashed border-sand pt-2 font-semibold">
-                <span className="text-ink">Total</span>
-                <span className="text-ink">{formatPrice(totalPrice)}</span>
-              </li>
-            </ul>
-          )}
-        </section>
-
-        <section className="rounded-2xl border border-sand bg-paper p-4">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-ink">
-            Produk terlaris
-          </h3>
-          <ul className="mt-3 space-y-2 text-sm">
-            {perks.map((product) => (
-              <li key={product.id} className="flex items-center justify-between gap-3">
-                <span className="truncate text-ink">{product.name}</span>
-                <span className="shrink-0 text-muted">{product.sold} terjual</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="rounded-2xl border border-sand bg-paper p-4 lg:col-span-2">
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-ink">
-            Harga terendah
-          </h3>
-          <ul className="mt-3 divide-y divide-dashed divide-sand text-sm">
-            {cheapest.map((product) => (
-              <li
-                key={product.id}
-                className="flex items-center justify-between gap-3 py-2"
-              >
-                <Link
-                  to={`/product/${product.id}`}
-                  className="truncate text-ink hover:text-claydark"
-                >
-                  {product.name}
-                </Link>
-                <span className="shrink-0 text-muted">
-                  {formatPrice(product.price)} · stock {product.stock}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-    </div>
-  );
+    );
 }

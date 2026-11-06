@@ -6,8 +6,7 @@ import { clearToken, getToken } from "../api";
 const menuItems = [
   { label: "Beranda", to: "/" },
   { label: "Keranjang", to: "/cart" },
-  { label: "Checkout", to: "/checkout" },
-  { label: "Admin", to: "/admin" },
+  { label: "Checkout", to: "/checkout" }
 ];
 
 function linkClass(isActive) {

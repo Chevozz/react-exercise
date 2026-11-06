@@ -110,12 +110,6 @@ export default function Checkout() {
             >
               Belanja lagi
             </Link>
-            <Link
-              to="/admin"
-              className="rounded-full border border-sand bg-paper px-5 py-2.5 text-sm font-semibold text-ink transition hover:border-clay"
-            >
-              Lihat panel admin
-            </Link>
           </div>
         </div>
       </div>
